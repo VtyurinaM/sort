@@ -1,0 +1,55 @@
+import numpy as np
+class TreeNode:
+    def __init__(self,value):
+        self.value=value
+        self.left=None
+        self.right=None
+        print(value)
+        
+    def add_left_tree(self,value):
+        self.left=TreeNode(value)
+        
+    def add_right_tree(self,value):
+        self.right=TreeNode(value)
+        
+    def insert(self,val):
+        if self.value>val:# если взятое нами число меньше значения текущего узла
+            print('L')
+            if not (self.left is None):# если есть  левое поддерево
+                self.left.insert(val) #рекурсивно вызываем вставку для левого поддерева
+            else:
+                self.add_left_tree(val) #иначе создаем левое поддерево и вставляем в него val
+                
+                
+                
+        elif self.value<val:# если взятое число больше значения текущего узла
+            print('R')
+            if not (self.right is None):#если есть правое поддерево
+                self.right.insert(val) #рекурсивно вызываем вставку для правого поддерева
+            else:
+                self.add_right_tree(val) #иначе создаем правое поддерево и вставляем в него val
+                
+                
+                
+        else:
+            pass #пропустить
+def calc_height(T):
+    if T==None: return -1
+    else:    
+        a=calc_height(T.left)
+        b=calc_height(T.right)
+        m=0
+        if a>b: m=a
+        else: m=b
+        return m+1 
+    
+    
+A=[]
+for i in range(5):
+    A.append(np.random.randint(0,999))
+print(A)
+example=TreeNode(A[0])
+
+for i in range(1,len(A)):
+    example.insert(A[i])
+print(calc_height(example))
