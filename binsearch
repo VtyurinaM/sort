@@ -1,0 +1,69 @@
+import numpy as np
+import random
+import math 
+n=10
+A=np.zeros(n)
+for i in range(n):
+    A[i]=random.randint(1,20)
+for i in range(n):
+    for j in range (1,n):
+        if A[i]==A[j]:
+            A[i]=random.randint(1,20)
+print(A)
+
+
+def Merge(B,C,A):
+    i,j,k=0,0,0
+    p=len(B)
+    q=len(C)
+    while i<p and j<q:
+        if B[i]<= C[j]:
+            A[k]=B[i]
+            i+=1
+        else:
+            A[k]=C[j]
+            j+=1
+        k+=1
+    if i==p:
+        for t in range (j,q):
+            A[k]=C[t]
+            k+=1
+    else:
+        for t in range (i,p):
+            A[k]=B[t]
+    return A
+
+def MergeSort(A):
+    n=len(A)
+    p=n//2
+    q=n-p
+    B=np.zeros(p)
+    C=np.zeros(q)
+    if n>1:
+        for i in range (p):
+            B[i]=A[i]
+        for i in range (q):
+            C[i]=A[p+i]
+        #print(B,'+',C)
+        MergeSort(B)
+        MergeSort(C)
+        Merge(B,C,A)
+    #B.clear()
+    #C.clear()
+    return A
+G=MergeSort(A)
+print(G)
+G1=[1,2,3,6,7,88,90,92]
+
+def bin(G,k):
+    l=0
+    r=len(G)-1
+    while l<=r:
+        m=math.floor((l+2)/2)
+        if k==A[m]:
+            return m
+        if k<A[m]:
+            r=m+1
+        else:
+            l=m+1
+    return -1
